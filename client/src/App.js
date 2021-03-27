@@ -17,7 +17,7 @@ function App() {
 
   const checkStoredToken = async () => {
     const token = localStorage.getItem('token')
-    if (token) {
+    if (token.id) {
       const res = await ApiClient.get(`/auth/session`)
       dispatch({type: AUTHENTICATION, payload: {auth: true, user: res.data}})
       history.push('/dashboard')
