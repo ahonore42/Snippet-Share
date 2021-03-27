@@ -8,10 +8,7 @@ const Login = async (req, res) => {
       include: ['snippets', 'comments'],
       raw: true
     })
-    if (
-      user &&
-      (await ComparePassword(req.body.password, user.passwordDigest))
-    ) {
+    if (user && (await ComparePassword(req.body.password, user.passwordDigest))) {
       const payload = {
         id: user.id,
         username: user.username
@@ -45,7 +42,7 @@ const Register = async (req, res) => {
 const GetCurrentUser = async (req, res) => {
   try {
     const {token} = res.locals
-    const user = await User.findByPk(token.id,{include: ['snippets','comments']})
+    const user = await User.findByPk(token.id, {include: ['snippets','comments']})
     res.status(200).json({token, user})
   } catch (error) {
     throw error

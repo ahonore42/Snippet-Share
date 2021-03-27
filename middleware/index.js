@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken')
 const { SALT_ROUNDS, SECRET_KEY } = process.env
 
 const HashPassword = async (password) => {
-  const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS)
+  const hashedPassword = await bcrypt.hash(password, parseInt(SALT_ROUNDS))
   return hashedPassword
 }
 
