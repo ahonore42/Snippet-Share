@@ -22,7 +22,7 @@ const CreateSnippet = async (req, res) => {
   try {
     // const { token } = res.locals
     const snippet = await Snippet.create({...req.body})
-    res.json(snippet)
+    res.status(200).json(snippet)
   } catch (error) {
     throw error
   }

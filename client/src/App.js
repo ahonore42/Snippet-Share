@@ -3,12 +3,13 @@ import './styles/App.css';
 import {Route, Switch, useHistory} from 'react-router-dom';
 import {appReducer, appState} from './store/reducers/AppReducer';
 import {AUTHENTICATION} from './store/types';
+import { _CheckSession } from './utils/DatabaseQueries';
 import Home from './pages/Home';
 import Editor from './pages/Editor';
 import Dashboard from './pages/Dashboard';
 import SnippetsList from './pages/SnippetsList';
 import Layout from './components/Layout';
-import ApiClient from './globals';
+
 
 
 function App() {
@@ -17,9 +18,9 @@ function App() {
 
   const checkStoredToken = async () => {
     const token = localStorage.getItem('token')
-    if (token.id) {
-      const res = await ApiClient.get(`/auth/session`)
-      dispatch({type: AUTHENTICATION, payload: {auth: true, user: res.data}})
+    if (token) {
+      const session = await _CheckSession()
+      dispatch({type: AUTHENTICATION, payload: {auth: true, user: session}})
       history.push('/dashboard')
     }
   }

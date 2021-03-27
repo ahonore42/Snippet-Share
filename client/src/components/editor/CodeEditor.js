@@ -2,7 +2,7 @@ import React, {useReducer} from "react";
 import AceEditor from "react-ace";
 import EditorOption from './EditorOption';
 import TextInput from '../forms/TextInput';
-import ApiClient from '../../globals';
+import {_CreateCodeSnippet} from '../../utils/DatabaseQueries';
 import {reducer, initialState} from '../../store/reducers/EditorReducer';
 import { CLEAR_EDITOR, CODE_SNIPPETS, EDITOR_VALUE, TEXT_INPUT } from "../../store/types";
 import {languages, themes, fontSizes} from '../../styles/editor';
@@ -31,11 +31,12 @@ const CodeEditor = ({currentUser, history}) => {
       userId: currentUser.id
     }
     try {
-      const res = await ApiClient.post('/snippets', snippet);
-      console.log(res)
-      dispatch({type: CODE_SNIPPETS, payload: [...state.allSnippets, snippet]})
-      dispatch({type: CLEAR_EDITOR, payload: ''})
-      history.push('/dashboard')
+      const res = await _CreateCodeSnippet(snippet)
+      if (res.status===200) {
+        dispatch({type: CODE_SNIPPETS, payload: [...state.allSnippets, snippet]})
+        dispatch({type: CLEAR_EDITOR, payload: ''})
+        history.push('/dashboard')
+      }
     }
     catch(err) {
       console.log(err)
