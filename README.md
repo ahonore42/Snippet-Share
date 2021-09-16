@@ -11,8 +11,3 @@ This project is utilizing the following technologies if you'd like to contribute
 - Express
 - Ace Editor
 
-The following are diagrams of of the backend (Entity Relationship Diagram) and the frontend (Component Hierarchy Diagram):
-
-
-Future Updates
-- Styled buttons
